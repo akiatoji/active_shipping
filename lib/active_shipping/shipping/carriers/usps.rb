@@ -37,13 +37,15 @@ module ActiveMerchant
         :us_rates => 'RateV4',
         :world_rates => 'IntlRateV2',
         :test => 'CarrierPickupAvailability',
-        :track => 'TrackV2'
+        :track => 'TrackV2',
+        :verify => 'Verify'
       }
       USE_SSL = {
         :us_rates => false,
         :world_rates => false,
         :test => true,
-        :track => false
+        :track => false,
+        :verify => false
       }
       CONTAINERS = {
         :envelope => 'Flat Rate Envelope',
@@ -581,6 +583,7 @@ module ActiveMerchant
       end
 
       def commit(action, request, test = false)
+        Rails.logger.ap request_url action, request, test
         ssl_get(request_url(action, request, test))
       end
 
