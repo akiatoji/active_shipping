@@ -21,6 +21,7 @@ Gem::Specification.new do |s|
   s.add_dependency('active_utils', '>= 1.0.1')
   s.add_dependency('builder')
   s.add_dependency('json', '>= 1.5.1')
+  s.add_dependency('activemerchant')
 
   s.add_development_dependency('minitest', '~> 4.7.5')
   s.add_development_dependency('rake')
