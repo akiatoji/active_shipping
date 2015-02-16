@@ -32,7 +32,7 @@ module ActiveMerchant
       # alternate functionality, such as checking for test_mode to use test servers, etc.
       def valid_credentials?
         location = self.class.default_location
-        find_rates(location,location,Package.new(100, [5,15,30]), :test => test_mode)
+        find_rates(location,location, ActiveMerchant::Shipping::Package.new(100, [5,15,30]), :test => test_mode)
       rescue ActiveMerchant::Shipping::ResponseError
         false
       else
@@ -44,6 +44,20 @@ module ActiveMerchant
       end
 
       protected
+
+      # Took from activeutils::RequiresParameters
+      def requires!(hash, *params)
+        params.each do |param|
+          if param.is_a?(Array)
+            raise ArgumentError.new("Missing required parameter: #{param.first}") unless hash.has_key?(param.first)
+
+            valid_options = param[1..-1]
+            raise ArgumentError.new("Parameter: #{param.first} must be one of #{valid_options.to_sentence(:words_connector => 'or')}") unless valid_options.include?(hash[param.first])
+          else
+            raise ArgumentError.new("Missing required parameter: #{param}") unless hash.has_key?(param)
+          end
+        end
+      end
 
       def node_text_or_nil(xml_node)
         xml_node ? xml_node.text : nil
