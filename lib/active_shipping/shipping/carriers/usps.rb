@@ -307,6 +307,7 @@ module ActiveMerchant
       def build_world_rate_request(packages, origin_zip, destination)
         country = COUNTRY_NAME_CONVERSIONS[destination.country.code(:alpha2).value] || destination.country.name
         request = XmlNode.new('IntlRateV2Request', :USERID => @options[:login]) do |rate_request|
+          rate_request << XmlNode.new('Revision', 2)
           packages.each_index do |id|
             p = packages[id]
             rate_request << XmlNode.new('Package', :ID => id.to_s) do |package|
