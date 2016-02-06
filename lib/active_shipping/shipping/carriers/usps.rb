@@ -28,7 +28,7 @@ module ActiveMerchant
 
       TEST_DOMAINS = { #indexed by security; e.g. TEST_DOMAINS[USE_SSL[:rates]]
         true => 'secure.shippingapis.com',
-        false => 'testing.shippingapis.com'
+        false => 'staging.shippingapis.com'
       }
 
       TEST_RESOURCE = 'ShippingAPITest.dll'
